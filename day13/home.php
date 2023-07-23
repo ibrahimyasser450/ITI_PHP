@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if (!$_SESSION['logged']) {
+    header('location:login.php');
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,27 +39,31 @@ try {
  <tr>
  <td>First_name</td>
  <td>Last_name</td>
- <td>Address</td>
- <td>Country</td>
- <td>Gender</td>
- <td>Skills</td>
  <td>User_name</td>
  <td>Password</td>
+ <td>Password_Confirmation</td>
  <td>Email</td>
- <td>Department</td>
+ <td>Country</td>
+ <td>Room No</td>
+ <td>Image</td>
  <td>Edit</td>
  <td>Delete</td>
+ <td>Logout</td>
  </tr>";
     $data = file("data.txt");
     foreach ($data as $value) {
         $user = explode(":", $value);
-        // var_dump($user);
         echo "<tr>";
-        foreach ($user as $value) {
-            echo "<td>$value</td>";
+        // var_dump($user);
+        foreach ($user as $key => $value) {
+            if ($key < 8) {
+                echo "<td>$value</td>";
+            }
         }
-        echo "<td> <a class='btn btn-warning' href='editdelete.php?first_name=$user[0]&last_name=$user[1]&address=$user[2]&country=$user[3]&gender=$user[4]&skills=$user[5]&username=$user[6]&password=$user[7]&email=$user[8]&department=$user[9]'> Edit </a></td>";
-        echo "<td> <a class='btn btn-danger' href='deleteuser.php?first_name=$user[0]'> Delete </a></td>";
+        echo "<td> <img src='$user[8]' width='50px' height='60px'></td>";
+        echo "<td> <a class='btn btn-warning' href='editdelete.php?first_name=$user[0]&last_name=$user[1]&username=$user[2]&password=$user[3]&Password_Confirmation=$user[4]&email=$user[5]&country=$user[6]&room=$user[7]'> Edit </a></td>";
+        echo "<td> <a class='btn btn-danger' href='deleteuser.php?first_name={$user[0]}'> Delete </a></td>";
+        echo "<td> <a class='btn btn-dark' href='logout.php'> Logout </a></td>";
         echo "</tr>";
     }
     echo "</table>";

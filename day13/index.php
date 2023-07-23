@@ -7,14 +7,13 @@ if (isset($_GET['errors'])) {
 
 $first_name = '';
 $last_name = '';
-$address = '';
-$country = '';
-$gender = '';
-$skills = [];
 $username = '';
 $password = '';
+$password_confirmation = '';
 $email = '';
-$department = '';
+$country = '';
+$room = '';
+
 
 if (isset($_GET['first_name'])) {
     $first_name = $_GET['first_name'];
@@ -22,31 +21,27 @@ if (isset($_GET['first_name'])) {
 if (isset($_GET['last_name'])) {
     $last_name = $_GET['last_name'];
 }
-if (isset($_GET['address'])) {
-    // $address = htmlspecialchars($_GET['address']);
-    $address = $_GET['address'];
-}
-if (isset($_GET['country'])) {
-    $country = $_GET['country'];
-}
-if (isset($_GET['gender'])) {
-    $gender = $_GET['gender'];
-}
-if (isset($_GET['skills'])) {
-    $skills = explode(',', $_GET['skills']);
-}
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
 }
 if (isset($_GET['password'])) {
     $password = $_GET['password'];
 }
+if (isset($_GET['password_confirmation'])) {
+    $password_confirmation = $_GET['password_confirmation'];
+}
 if (isset($_GET['email'])) {
     $email = $_GET['email'];
 }
-if (isset($_GET['department'])) {
-    $department = $_GET['department'];
+if (isset($_GET['room'])) {
+    $room = $_GET['room'];
 }
+if (isset($_GET['country'])) {
+    $country = $_GET['country'];
+}
+
+
+
 ?>
 
 
@@ -71,7 +66,7 @@ if (isset($_GET['department'])) {
             <div class="Sign-up">
                 <h1>Sign up</h1>
             </div>
-            <form method="POST" action="show.php" id="user-form" class="signin-form">
+            <form method="POST" action="show.php" id="user-form" class="signin-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for="first_name">First Name</label>
                     <input type="text" class="form-control" placeholder="first_name" id="first_name" name="first_name" value="<?php echo $first_name; ?>" />
@@ -87,8 +82,29 @@ if (isset($_GET['department'])) {
                                             } ?></span>
                 </div>
                 <div class="form-group">
-                    <label class="label" for="address">Address</label>
-                    <textarea id="address" name="address" class="form-control-address" rows="4" cols="50" style="overflow-y: scroll;" required><?php echo $address; ?></textarea>
+                    <label class="label" for="name">username</label>
+                    <input type="text" class="form-control" placeholder="username" id="username" name="username" required value="<?php echo $username; ?>" />
+                </div>
+                <div class="form-group">
+                    <label class="label" for="password">password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="password" required value="<?php echo $password; ?>" />
+                    <span class="danger"><?php if (isset($errors['password'])) {
+                                                echo $errors['password'];
+                                            } ?></span>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="password_confirmation">password_confirmation</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="password_confirmation" required value="<?php echo $password_confirmation; ?>" />
+                    <span class="danger"><?php if (isset($errors['password_confirmation'])) {
+                                                echo $errors['password_confirmation'];
+                                            } ?></span>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="<?php echo $email; ?>" />
+                    <span class="danger"><?php if (isset($errors['email'])) {
+                                                echo $errors['email'];
+                                            } ?></span>
                 </div>
                 <div class="form-group">
                     <label class="label" for="country">Country</label>
@@ -100,50 +116,21 @@ if (isset($_GET['department'])) {
                         <option value="aswan" <?php if ($country == 'aswan') echo 'selected'; ?>>Aswan</option>
                     </select>
                 </div>
-                <div class="form-group-gender">
-                    <label class="label">Gender:</label>
-                    <input type="radio" id="male" name="gender" value="male" <?php if ($gender == 'male') echo 'checked'; ?>>
-                    <label class="special1" for="male">Male</label>
-                    <input type="radio" id="female" name="Gender" value="female" <?php if ($gender == 'female') echo 'checked'; ?>>
-                    <label class="special2" for="female">Female</label>
-                    <span class="danger"><?php if (isset($errors['gender'])) {
-                                                echo $errors['gender'];
+                <div class="form-group">
+                    <label class="label" for="room">Room no</label>
+                    <select class="form-control" id="room" name="room" required>
+                        <option value="" disabled>select room</option>
+                        <option value="application1" <?php if ($room == 'application1') echo 'selected'; ?>>Application1</option>
+                        <option value="application2" <?php if ($room == 'application2') echo 'selected'; ?>>Application2</option>
+                        <option value="cloud" <?php if ($room == 'cloud') echo 'selected'; ?>>cloud</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="label" for="image">Profile picture</label>
+                    <input type="file" id="image" name="image" class="form-control" />
+                    <span class="danger"><?php if (isset($errors['image'])) {
+                                                echo $errors['image'];
                                             } ?></span>
-                </div>
-                <div class="form-group-skills">
-                    <label class="label">Skills:</label>
-                    <input type="checkbox" id="php" name="skills[]" value="php" <?php if (in_array('php', $skills)) echo 'checked'; ?>>
-                    <label class="special" for="php">PHP</label>
-                    <input type="checkbox" id="js" name="skills[]" value="js" <?php if (in_array('js', $skills)) echo 'checked'; ?>>
-                    <label class="special" for="js">JS</label>
-                    <input type="checkbox" id="mysql" name="skills[]" value="mysql" <?php if (in_array('mysql', $skills)) echo 'checked'; ?>>
-                    <label class="special" for="mysql">MYSQL</label>
-                    <input type="checkbox" id="laravel" name="skills[]" value="laravel" <?php if (in_array('laravel', $skills)) echo 'checked'; ?>>
-                    <label class="special" for="laravel">Laravel</label>
-                </div>
-                <div class="form-group">
-                    <label class="label" for="name">username</label>
-                    <input type="text" class="form-control" placeholder="username" id="username" name="username" required value="<?php echo $username; ?>" />
-                </div>
-                <div class="form-group">
-                    <label class="label" for="password">password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="password" required value="<?php echo $password; ?>" />
-                </div>
-                <div class="form-group">
-                    <label class="label" for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="<?php echo $email; ?>" />
-                    <span class="danger"><?php if (isset($errors['email'])) {
-                                                echo $errors['email'];
-                                            } ?></span>
-                </div>
-                <div class="form-group">
-                    <label class="label" for="department">Department</label>
-                    <input type="text" id="department" name="department" class="form-control" placeholder="department" required value="<?php echo $department; ?>" />
-                </div>
-                <!-- captcha -->
-                <div class="form-group">
-                    <h2 id="code">Mb12ds</h2>
-                    <input type="text" name="captcha" id="captcha" class="form-control" placeholder="please insert the code" required>
                 </div>
                 <div>
                     <button type="submit" id="btn">submit</button>
@@ -153,9 +140,6 @@ if (isset($_GET['department'])) {
             </form>
 
         </div>
-        <?php
-        // echo md5("ibrahim");
-        ?>
     </main>
     <script src="js/all.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
