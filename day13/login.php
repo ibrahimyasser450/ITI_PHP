@@ -5,6 +5,16 @@ if (isset($_GET['errors'])) {
     $errors = json_decode($_GET['errors'], true);
 }
 
+$username = '';
+$password = '';
+
+if (isset($_GET['username'])) {
+    $username = $_GET['username'];
+}
+if (isset($_GET['password'])) {
+    $password = $_GET['password'];
+}
+
 ?>
 
 
@@ -32,14 +42,20 @@ if (isset($_GET['errors'])) {
             <form method="POST" action="validate.php" id="user-form" class="signin-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label" for="name">username</label>
-                    <input type="text" class="form-control" placeholder="username" id="username" name="username" required />
+                    <input type="text" class="form-control" placeholder="username" id="username" name="username" />
+                    <span class="danger"><?php if (isset($errors['username'])) {
+                                                echo $errors['username'];
+                                            } ?></span>
                 </div>
                 <div class="form-group">
                     <label class="label" for="password">password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="password" required />
+                    <input type="password" id="password" name="password" class="form-control" placeholder="password" />
+                    <span class="danger"><?php if (isset($errors['password'])) {
+                                                echo $errors['password'];
+                                            } ?></span>
                 </div>
                 <div>
-                    <button type="submit" id="btn">submit</button>
+                    <button type="submit" id="btn-login">submit</button>
                 </div>
 
             </form>

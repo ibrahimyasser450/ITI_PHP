@@ -81,21 +81,32 @@ h2 {
 }
 
 #btn,
-#btn2 {
-  width: 30%;
+#btn2,
+#btn-login {
   height: 48px;
   cursor: pointer;
   box-shadow: none;
   font-size: 15px;
-  margin: 20px 8%;
   background-color: #e3b04b;
   color: #fff;
   border: 2px solid #e3b04b;
   border-radius: 10px;
 }
 
+#btn,
+#btn2 {
+  width: 30%;
+  margin: 20px 8%;
+}
+
+#btn-login {
+  width: 50%;
+  margin: 20px 23%;
+}
+
 #btn:hover,
-#btn2:hover {
+#btn2:hover,
+#btn-login:hover {
   background-color: #004243 !important;
   border-color: #004243 !important;
 }
@@ -119,5 +130,4 @@ h2 {
 
 .danger {
   color: red;
-  font-size: 1rem;
 }

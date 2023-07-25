@@ -6,7 +6,7 @@ $passwordRegex = "/^[a-z0-9_]{8,}$/";
 $email = $_POST['email'];
 $pattern = "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
 
-
+//image
 if (isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
     $nameimg = $_FILES['image']['name'];
     $pathimg = $_FILES['image']['tmp_name'];
@@ -22,13 +22,23 @@ if (isset($_FILES['image']) and !empty($_FILES['image']['name'])) {
 }
 
 
-if (!isset($_POST['first_name']) or empty($_POST['first_name'])) {
+//first_name
+if (!isset($_POST['first_name']) || trim($_POST['first_name']) === '') {
     $errors['first_name'] = 'First_name is Required';
 }
-if (!isset($_POST['last_name']) or empty($_POST['last_name'])) {
+
+//last_name
+if (!isset($_POST['last_name']) || trim($_POST['last_name']) === '') {
     $errors['last_name'] = 'Last_name is Required';
 }
-if (!isset($_POST['password']) or empty($_POST['password'])) {
+
+//username
+if (!isset($_POST['username']) || trim($_POST['username']) === '') {
+    $errors['username'] = 'Username is Required';
+}
+
+//pssword
+if (!isset($_POST['password']) || trim($_POST['password']) === '') {
     $errors['password'] = 'Password is Required';
 }
 // only 8 chars and doesn't allow special chars only underscore allowed and doesn't accept capital characters
@@ -39,7 +49,9 @@ elseif (!preg_match($passwordRegex, $password)) {
 elseif ($password !== $password_confirmation) {
     $errors['password_confirmation'] = 'password_confirmation do not match';
 }
-if (!isset($_POST['email']) or empty($_POST['email'])) {
+
+//email
+if (!isset($_POST['email']) || trim($_POST['email']) === '') {
     $errors['email'] = 'Email is Required';
 }
 // Method 1: Using filter_var() function
@@ -51,16 +63,18 @@ elseif (!preg_match($pattern, $email)) {
     $errors['email'] = 'Email is Invalid';
 }
 
+
+//insert
 if (empty($errors)) {
-    $firstname = $_POST['first_name'];
-    $lastname = $_POST['last_name'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
     $username = $_POST['username'];
     $country = $_POST['country'];
     $room = $_POST['room'];
     $image = $newnameimg;
 
     $file = fopen('data.txt', 'a');
-    $data = "$firstname:$lastname:$username:$password:$password_confirmation:$email:$country:$room:$image\n";
+    $data = "$first_name:$last_name:$username:$password:$password_confirmation:$email:$country:$room:$image\n";
     fwrite($file, $data);
     fclose($file);
 

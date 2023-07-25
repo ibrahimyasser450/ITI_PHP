@@ -41,7 +41,6 @@ if (isset($_GET['country'])) {
 }
 
 
-
 ?>
 
 
@@ -83,18 +82,21 @@ if (isset($_GET['country'])) {
                 </div>
                 <div class="form-group">
                     <label class="label" for="name">username</label>
-                    <input type="text" class="form-control" placeholder="username" id="username" name="username" required value="<?php echo $username; ?>" />
+                    <input type="text" class="form-control" placeholder="username" id="username" name="username" value="<?php echo $username; ?>" />
+                    <span class="danger"><?php if (isset($errors['username'])) {
+                                                echo $errors['username'];
+                                            } ?></span>
                 </div>
                 <div class="form-group">
                     <label class="label" for="password">password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="password" required value="<?php echo $password; ?>" />
+                    <input type="password" id="password" name="password" class="form-control" placeholder="password" value="<?php echo $password; ?>" />
                     <span class="danger"><?php if (isset($errors['password'])) {
                                                 echo $errors['password'];
                                             } ?></span>
                 </div>
                 <div class="form-group">
                     <label class="label" for="password_confirmation">password_confirmation</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="password_confirmation" required value="<?php echo $password_confirmation; ?>" />
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="password_confirmation" value="<?php echo $password_confirmation; ?>" />
                     <span class="danger"><?php if (isset($errors['password_confirmation'])) {
                                                 echo $errors['password_confirmation'];
                                             } ?></span>

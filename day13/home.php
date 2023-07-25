@@ -61,8 +61,8 @@ try {
             }
         }
         echo "<td> <img src='$user[8]' width='50px' height='60px'></td>";
-        echo "<td> <a class='btn btn-warning' href='editdelete.php?first_name=$user[0]&last_name=$user[1]&username=$user[2]&password=$user[3]&Password_Confirmation=$user[4]&email=$user[5]&country=$user[6]&room=$user[7]'> Edit </a></td>";
-        echo "<td> <a class='btn btn-danger' href='deleteuser.php?first_name={$user[0]}'> Delete </a></td>";
+        echo "<td> <a class='btn btn-warning' href='edit.php?first_name={$user[0]}&last_name={$user[1]}&username={$user[2]}&password={$user[3]}&password_confirmation={$user[4]}&email={$user[5]}&country={$user[6]}&room={$user[7]}&image={$user[8]}'> Edit </a></td>";
+        echo "<td> <a class='btn btn-danger' href='delete.php?first_name={$user[0]}&image={$user[8]}'> Delete </a></td>";
         echo "<td> <a class='btn btn-dark' href='logout.php'> Logout </a></td>";
         echo "</tr>";
     }
